@@ -14,6 +14,7 @@
 #include <avr/sleep.h>
 #include <stdbool.h> // library for boolean variable
 #include "Include.h"
+#include "lcd.h"
 double posx = 0.0; // the current position of x
 double posy = 0.0; // the current position of y
 bool statusx; // to control the direction of x rotation
@@ -31,15 +32,26 @@ int value_2;
 int step_1;
 int step_2;
 char String [8] ;
+char s1[20];
+char s2[20];
 int main(void)
 {
 	Init();
 	while (1)
 	{
-		UART_RxString(String);
+
+		Lcd4_Clear();
+		//UART_RxString(String);
+		Recive_Data();
 		value_1 = atoi(String);           //extract first value
 		value_2 = second_value (String); //call function to extract second value
-
+		itoa(value_1,s1,10);
+		itoa(value_2,s2,10);
+		Lcd4_Set_Cursor(1,1);
+		Lcd4_Write_String(s1);
+		Lcd4_Set_Cursor(2,1);
+		Lcd4_Write_String(s2);		
+		_delay_ms(500);
 		if (!(value_1>250||value_2>250||value_1<0||value_2<0)) // if the values don't skip the plate ,use it
 		{
 			
@@ -82,20 +94,25 @@ int main(void)
 		}
 		while (Y>=0)
 		{
-			Stepper_A_rev(statusy,1);
+			Stepper_B_rev(statusy,1);
 			Y--;
 		}
 		posx = x;
 		posy = y;
 		x = 0.0;
 		y = 0.0;
+
+
 	}
 }
 void Init(void)
 {
-	StepperInit(16,1000);
+	StepperInit(1,1000);
 	DDRC |=(1<<PC0)|(1<<PC1)|(1<<PC2)|(1<<PC3)|(1<<PC4)|(1<<PC5)|(1<<PC6);
-	UART_Init(9600);
+	DDRB |=(1<<PB0)|(1<<PB1)|(1<<PB2)|(1<<PB3)|(1<<PB4)|(1<<PB5);// use PB0,1,2,3,4,5 as output for LCD
+	//UART_Init(9600);
+	UART_INIT();
+	Lcd4_Init();
 }
 
 
