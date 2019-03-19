@@ -10,7 +10,7 @@
  * and the DIR pin is control the direction of rotation cw or ccw
  */
 #include "stepper.h"
-#include<util/delay.h>
+#include <util/delay.h>
 #include <avr/io.h>
 #include <stdbool.h>
 int speed;
@@ -151,57 +151,6 @@ void STpinChange(int a, int b)
 		PORTD |= (1<<PD7);
 	}
 }
-void Steper_pins(char a)
-{
-	if(a & 1)
-	STpinChange(ms1,1);
-	else
-	STpinChange(ms1,0);
-	
-	if(a & 2)
-	STpinChange(ms2,1);
-	else
-	STpinChange(ms2,0);
-	
-	if(a & 4)
-	STpinChange(ms3,1);
-	else
-	STpinChange(ms3,0);
-	
-	if(a & 8)
-	STpinChange(StepA,1);
-	else
-	STpinChange(StepA,0);
-	if(a & 16)
-	STpinChange(DIRA,1);
-	else
-	STpinChange(DIRA,0);
-	if(a & 32)
-	STpinChange(StepB,1);
-	else
-	STpinChange(StepB,0);
-	if(a & 64)
-	STpinChange(DIRB,1);
-	else
-	STpinChange(DIRB,0);
-	if(a & 128)
-	STpinChange(StepC,1);
-	else
-	STpinChange(StepC,0);
-	if(a & 256)
-	STpinChange(DIRC,1);
-	else
-	STpinChange(DIRC,0);
-	if(a & 512)
-	STpinChange(StepD,1);
-	else
-	STpinChange(StepD,0);
-	if(a & 1024)
-	STpinChange(DIRD,1);
-	else
-	STpinChange(DIRD,0);
-	
-}
 
 void steper_1step(){ // to make a full 1 step with 2 phase
 	STpinChange(ms1,0);        // ms1 = 0,ms2 = 0,ms3 = 0 from a9488 data sheet
@@ -243,7 +192,7 @@ void StepperInit(int steps,int16_t sp)  //types of steps (1,2,6,8,16),speed of r
 void setspeed(int sp){
 	sp=(1000/sp);//1step = 1 mm 
 	while(sp > 0){
-		_delay_ms(1);
+		_delay_us (500);
 		sp-=1;
 	}
 }
@@ -260,7 +209,7 @@ void Stepper_A_rev(bool clockw,uint8_t NuOfSteps){//rotate clockwise or ccw , nu
 	while (NuOfSteps > 0)
 	{
 		STpinChange(StepA,1);
-		_delay_ms(1); 
+		setspeed(speed);
 		STpinChange(StepA,0);
 		setspeed(speed);
 		NuOfSteps -= 1;
@@ -279,7 +228,7 @@ void Stepper_B_rev(bool clockw,uint8_t NuOfSteps){//rotate clockwise or ccw , nu
 	while (NuOfSteps != 0)
 	{
 		STpinChange(StepB,1);
-		_delay_ms(1); //1Hz = 60 rpm & t = 1/f &1s = 1000ms
+		setspeed(speed); //1Hz = 60 rpm & t = 1/f &1s = 1000ms
 		STpinChange(StepB,0);
 		setspeed(speed);
 		NuOfSteps -= 1;
@@ -298,7 +247,7 @@ void Stepper_C_rev(bool clockw,uint8_t NuOfSteps){//rotate clockwise or ccw , nu
 	while (NuOfSteps != 0)
 	{
 		STpinChange(StepC,1);
-		_delay_ms(1); //1Hz = 60 rpm & t = 1/f &1s = 1000ms
+		setspeed(speed); //1Hz = 60 rpm & t = 1/f &1s = 1000ms
 		STpinChange(StepC,0);
 		setspeed(speed);
 		NuOfSteps -= 1;
@@ -317,7 +266,7 @@ void Stepper_D_rev(bool clockw,uint8_t NuOfSteps){//rotate clockwise or ccw , nu
 	while (NuOfSteps != 0)
 	{
 		STpinChange(StepD,1);
-		_delay_ms(1); //1Hz = 60 rpm & t = 1/f &1s = 1000ms
+		setspeed(speed); //1Hz = 60 rpm & t = 1/f &1s = 1000ms
 		STpinChange(StepD,0);
 		setspeed(speed);
 		NuOfSteps -= 1;
