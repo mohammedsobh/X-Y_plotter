@@ -43,10 +43,7 @@ int main(void)
 		}
 		Recive_Data(String);
 		value_1 = atoi(String);           //extract first value
-		value_2 = second_value (String); //call function to extract second value
-		Lcd4_Clear();
-		Lcd4_Set_Cursor(1,1);
-		Lcd4_Write_String(String);		if (!(value_1>250||value_2>250||value_1<0||value_2<0)) // if the values don't skip the plate ,use it
+		value_2 = second_value (String); //call function to extract second value		if (!(value_1>250||value_2>250||value_1<0||value_2<0)) // if the values don't skip the plate ,use it
 		{
 			x = sub_function (&old_val_1, value_1);     //call function to extract first step
 			y = sub_function (&old_val_2, value_2);    //call function to extract second stepp
@@ -76,9 +73,7 @@ void Init(void)
 	StepperInit(16,1000);
 	DDRC |=0XFF;
 	DDRA |= (1<<PA7);
-	DDRB |= (1<<PB0) | (1<<PB1) | (1<<PB2)| (1<<PB3)| (1<<PB4)| (1<<PB5) | (1<<PB6);
 	UART_INIT();
-	Lcd4_Init();
 }
 
 
