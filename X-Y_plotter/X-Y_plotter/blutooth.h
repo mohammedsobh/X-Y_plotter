@@ -9,6 +9,6 @@
 #ifndef BLUTOOTH_H_
 #define BLUTOOTH_H_
 #include "Include.h"
-double second_value (char* g);
-double sub_function (double* current_pos, double new_pos);
+int second_value (char* String);
+int sub_function (int *current_pos, int new_pos);
 #endif /* BLUTOOTH_H_ */

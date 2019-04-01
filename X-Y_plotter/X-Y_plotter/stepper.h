@@ -44,23 +44,27 @@
 #define St_PORTD7 37
 #define cw 1
 #define ccw 0
-#define ms1 St_PORTC0    //ms1 pin from the driver connect to portA0
-#define ms2 St_PORTC1    //ms2 pin from the driver connect to portA1
-#define ms3 St_PORTC2    //ms3 pin from the driver connect to portA2
-#define StepA St_PORTC4  //step pin for first stepper from the driver connect to portA3
-#define DIRA St_PORTC3   //direction pin for first stepper from the driver connect to portA4
-#define StepB St_PORTC5  //step pin for 2nd stepper from the driver connect to portA5
-#define DIRB St_PORTC6   //direction pin for 2nd stepper from the driver connect to portA6
-#define StepC St_PORTA7  //step pin for 3rd stepper from the driver connect to portA7
-#define DIRC St_PORTB0   //direction pin for 3rd stepper from the driver connect to portB0
-#define StepD St_PORTB1  //step pin for 4th stepper from the driver connect to portB1
-#define DIRD St_PORTB2   //direction pin for 4th stepper from the driver connect to portB2
+#define ms1		St_PORTC0    //ms1 pin from the driver connect to portA0
+#define ms2		St_PORTC1    //ms2 pin from the driver connect to portA1
+#define ms3		St_PORTC2    //ms3 pin from the driver connect to portA2
+#define StepA	St_PORTC3  //step pin for first stepper from the driver connect to portA3
+#define DIRA	St_PORTC4   //direction pin for first stepper from the driver connect to portA4
+#define StepB	St_PORTC5  //step pin for 2nd stepper from the driver connect to portA5
+#define DIRB	St_PORTC6   //direction pin for 2nd stepper from the driver connect to portA6
+#define StepC	St_PORTC7  //step pin for 3rd stepper from the driver connect to portA7
+#define DIRC	St_PORTA7   //direction pin for 3rd stepper from the driver connect to portB0
+#define StepD	St_PORTB1  //step pin for 4th stepper from the driver connect to portB1
+#define DIRD	St_PORTB2   //direction pin for 4th stepper from the driver connect to portB2
 void STpinChange(int a, int b);
 void StepperInit(int steps,int16_t sp) ;
-void Stepper_A_rev(bool clockw,uint8_t NuOfSteps);
-void Stepper_B_rev(bool clockw,uint8_t NuOfSteps);
-void Stepper_C_rev(bool clockw,uint8_t NuOfSteps);
-void Stepper_D_rev(bool clockw,uint8_t NuOfSteps);
+void Stepper_A_onerev(bool clockw);
+void Stepper_B_onerev(bool clockw);
+void Stepper_C_onerev(bool clockw);
+void Stepper_D_onerev(bool clockw);
+void Stepper_A_rev(bool clockw,long NuOfSteps);
+void Stepper_B_rev(bool clockw,long NuOfSteps);
+void Stepper_C_rev(bool clockw,long NuOfSteps);
+void Stepper_D_rev(bool clockw,long NuOfSteps);
 void setspeed(int sp);
 void steper_1step();
 void steper_Hstep();
